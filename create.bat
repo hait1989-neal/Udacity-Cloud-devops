@@ -1,0 +1,1 @@
+aws cloudformation create-stack --stack-name $1 --template-body file://cloudformation/$2  --parameters file://cloudformation/$3 --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM"
