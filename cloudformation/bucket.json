@@ -1,0 +1,9 @@
+[{
+    "ParameterKey": "EnvironmentName",
+    "ParameterValue": "HaiT-udacity-project2"
+},
+{
+    "ParameterKey": "BucketName",
+    "ParameterValue": "hait-udacity-project2-bucket"
+}
+]
