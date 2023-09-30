@@ -1,17 +1,22 @@
 # Udacity-Cloud-devops:
 
-#Script create stack
+## Sample Script
 
-create create-bucket bucket.yml bucket.json
-create create-network network.yml network.json
-create create-server server.yml server.json
+    * create stask
+    ```
+    create create-bucket bucket.yml bucket.json `
+    create create-network network.yml network.json `
+    create create-server server.yml server.json
+    ```
 
-#Script delete stack
-
-delete create-bucket
-delete create-network
-delete create-server
-
-#This URL is used to reach the loadbalancer.
-http://creat-WebSe-9XCSMQCBZNWP-35103866.us-east-1.elb.amazonaws.com
+    * delete stask
+    ```
+    delete create-bucket `
+    delete create-network `
+    delete create-server
+    ```
+## This URL is used to reach the loadbalancer.
+    ```
+    http://creat-WebSe-9XCSMQCBZNWP-35103866.us-east-1.elb.amazonaws.com
+    ```
 
