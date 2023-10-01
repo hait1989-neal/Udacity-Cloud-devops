@@ -47,17 +47,12 @@ Resources:
           FromPort: 80
           ToPort: 80
           CidrIp: 0.0.0.0/0
-        - IpProtocol: tcp
-          FromPort: 22
-          ToPort: 22
-          CidrIp: 0.0.0.0/0
           Description: "Allow all egress traffic by default"
       SecurityGroupEgress:
         - IpProtocol: tcp
           FromPort: 0
           ToPort: 65535
           CidrIp: 0.0.0.0/0
-          Description: "Allow ingress to the default HTTP port: 80 for load balancer health check"
 
   WebServerLaunchConfig:
     Type: AWS::AutoScaling::LaunchConfiguration
@@ -72,8 +67,7 @@ Resources:
           apt-get install apache2 -y
           systemctl start apache2.service
           cd /var/www/html
-          sudo aws s3 cp s3://udacityprojects3webserverbucket/index.html /var/www/html
-          echo "it works! Udagram, Udacity" > index.html
+          sudo aws s3 cp s3://hait-udacity-project2-bucket/index.html /var/www/html
           systemctl restart apache2.service
       ImageId: ami-00ddb0e5626798373
       SecurityGroups:
