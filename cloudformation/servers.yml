@@ -76,7 +76,6 @@ Resources:
           echo "it works! Udagram, Udacity" > index.html
           systemctl restart apache2.service
       ImageId: ami-00ddb0e5626798373
-      KeyName: vockey
       SecurityGroups:
         - !Ref WebServerSecurityGroup
       InstanceType: 
