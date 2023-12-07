@@ -28,6 +28,6 @@
 
 ## This URL is used to reach the loadbalancer.
  ```
- http://creat-WebSe-9XCSMQCBZNWP-35103866.us-east-1.elb.amazonaws.com
+ http://server-webse-8wcvmzluby3h-1342669110.us-east-1.elb.amazonaws.com
  ```
 
