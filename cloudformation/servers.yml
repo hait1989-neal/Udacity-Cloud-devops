@@ -55,29 +55,30 @@ Resources:
           CidrIp: 0.0.0.0/0
 
   WebServerLaunchConfig:
-    Type: AWS::AutoScaling::LaunchConfiguration
+    Type: AWS::EC2::LaunchTemplate
     Properties:
-      IamInstanceProfile:
+      LaunchTemplateName:
         Fn::ImportValue: !Sub '${EnvironmentName}-IAM-NAME'
-      UserData: 
-        Fn::Base64: !Sub |
-          #!/bin/bash
-          apt-get update -y
-          apt-get install unzip awscli -y
-          apt-get install apache2 -y
-          systemctl start apache2.service
-          cd /var/www/html
-          sudo aws s3 cp s3://hait-udacity-project2-bucket/index.html /var/www/html
-          systemctl restart apache2.service
-      ImageId: ami-00ddb0e5626798373
-      SecurityGroups:
-        - !Ref WebServerSecurityGroup
-      InstanceType: 
-        !Ref InstanceType
-      BlockDeviceMappings: 
-        - DeviceName: /dev/sdk
-          Ebs: 
-            VolumeSize: '10'
+      LaunchTemplateData:
+        ImageId: ami-00ddb0e5626798373
+        InstanceType: 
+          !Ref InstanceType
+        SecurityGroupIds:
+          - !Ref WebServerSecurityGroup
+        UserData: 
+          Fn::Base64: !Sub |
+            #!/bin/bash
+            apt-get update -y
+            apt-get install unzip awscli -y
+            apt-get install apache2 -y
+            systemctl start apache2.service
+            cd /var/www/html
+            sudo aws s3 cp s3://hait-udacity-project2-bucket/index.html /var/www/html
+            systemctl restart apache2.service
+        BlockDeviceMappings: 
+          - DeviceName: /dev/sdk
+            Ebs: 
+              VolumeSize: '10'
 
   WebServerGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
@@ -85,7 +86,9 @@ Resources:
       VPCZoneIdentifier:
       - Fn::ImportValue: !Sub "${EnvironmentName}-PRIV-SUB1"
       - Fn::ImportValue: !Sub "${EnvironmentName}-PRIV-SUB2"
-      LaunchConfigurationName: !Ref WebServerLaunchConfig
+      LaunchTemplate: 
+        LaunchTemplateId: !Ref WebServerLaunchConfig
+        Version: !GetAtt WebServerLaunchConfig.LatestVersionNumber
       MaxSize: '4'
       MinSize: '4'
       DesiredCapacity: '4'
